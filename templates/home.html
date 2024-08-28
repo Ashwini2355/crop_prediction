@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Prediction Project</title>
+    <style>
+        /* Reset some default styles */
+        body, h1, h2, p, ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Set the font and colors */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: url('https://wallpapercave.com/wp/wp3760036.jpg') no-repeat center center/cover; /* Set background image */
+            color: #e0e0e0; /* Light text color */
+            overflow-x: hidden;
+            padding-bottom: 60px; /* Ensure there's space for footer */
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+            color: #e0e0e0;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px; /* Ensure the nav does not stretch too wide */
+            margin: 0 auto; /* Center the nav */
+            padding: 0 20px; /* Add padding for spacing */
+            background: none; /* Remove any additional background */
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-container img {
+            width: 50px; /* Adjust the size of the logo */
+            height: 50px; /* Maintain aspect ratio */
+            border-radius: 50%; /* Make logo circular */
+            border: 2px solid #e0e0e0; /* Optional: Add border to enhance visibility */
+            margin-right: 10px; /* Space between logo and text */
+        }
+
+        .logo-container span {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #e0e0e0;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+            flex: 1;
+        }
+
+        nav ul.left-nav {
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul.right-nav {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        nav ul li {
+            margin: 0 20px;
+        }
+
+        nav ul li a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a::before {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ff5722;
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover::before {
+            width: 100%;
+        }
+
+        main {
+            padding: 80px 20px 20px; /* Top padding to account for fixed header */
+            text-align: center;
+            color: #f4f4f4;
+            position: relative;
+            z-index: 1;
+        }
+
+        main::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Dark overlay for text readability */
+            z-index: 0;
+        }
+
+        section {
+            margin: 40px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            color: #bb86fc;
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        h2 {
+            color: #03dac6;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+        }
+
+        p {
+            margin: 10px 0;
+            font-size: 1.1em;
+        }
+
+        .cta-button {
+            background: #ff5722;
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            transition: background 0.3s ease, transform 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-button:hover {
+            background: #e64a19;
+            transform: scale(1.05);
+        }
+
+        .cta-button.clicked {
+            transform: translateY(5px); /* Shift button down */
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+            color: #e0e0e0;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 1000;
+        }
+
+        footer::after {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 60px; /* Height of the transparent area */
+            background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px; /* Increased width */
+            margin: 0 auto;
+            padding: 40px; /* Increased padding */
+            background: rgba(0, 0, 0, 0.7); /* Container background */
+            border-radius: 10px;
+            text-align: center;
+            position: relative;
+        }
+
+        .fun-facts {
+            position: relative;
+            height: 150px; /* Adjusted height */
+            width: 80%; /* Increased width */
+            margin: 40px auto;
+            background: rgba(0, 0, 0, 0.7); /* Container background */
+            border-radius: 10px;
+            overflow: hidden;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box; /* Ensure padding is included in width */
+        }
+
+        .fun-facts h2 {
+            margin: 0;
+            color: #03dac6;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+        }
+
+        .fun-fact {
+            position: absolute;
+            width: 100%;
+            opacity: 0;
+            animation: fadeInOut 25s infinite;
+            animation-delay: calc(var(--index) * 5s);
+            font-size: 1.1em;
+            padding: 10px;
+            box-sizing: border-box; /* Ensure padding is included in width */
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; }
+            10% { opacity: 1; }
+            20% { opacity: 1; }
+            30% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="https://static.vecteezy.com/system/resources/previews/000/623/854/original/agriculture-business-logo-template-unique-green-vector-image.jpg" alt="Crop-Pred Logo">
+                <span>Crop-Pred</span>
+            </div>
+            <ul class="right-nav">
+                <li><a href="/">Home</a></li>
+                <li><a href="prediction">Crop Prediction</a></li>
+                <li><a href="analysis">Crop Analysis</a></li>
+                <li><a href="output">Output Analysis</a></li>
+                <li><a href="contact">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <section id="home">
+            <div class="container">
+                <h1>Smart Farming Insights</h1>
+                <p>Use advanced algorithms to predict the best crops to grow based on various parameters.</p>
+                <button class="cta-button" id="getStartedButton">Get Started</button>
+            </div>
+        </section>
+        
+        <section id="fun-facts">
+            <div class="fun-facts">
+                <h2>Fun Crop Facts!</h2>
+                <div class="fun-fact" style="--index: 0;">Did you know that the average ear of corn has about 800 kernels?</div>
+                <div class="fun-fact" style="--index: 1;">Carrots were originally purple. It wasn’t until the 17th century that orange carrots became popular!</div>
+                <div class="fun-fact" style="--index: 2;">Potatoes were the first vegetable to be grown in space. They went on a space shuttle mission in 1995.</div>
+                <div class="fun-fact" style="--index: 3;">Tomatoes are actually fruits, but they are commonly used as vegetables in cooking.</div>
+                <div class="fun-fact" style="--index: 4;">Onions are the only vegetable that can make you cry just by looking at them. Talk about emotional vegetables!</div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Crop Prediction Project. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // JavaScript for animations and redirection
+        document.getElementById('getStartedButton').addEventListener('click', function() {
+            this.classList.add('clicked');
+            setTimeout(() => {
+                this.classList.remove('clicked');
+                window.location.href = 'prediction'; // Redirect to the prediction page
+            }, 200); // Adjust timing to match the duration of the effect
+        });
+    </script>
+</body>
+</html>

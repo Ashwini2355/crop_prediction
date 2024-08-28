@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+    <style>
+        body, h1, p {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background: url('https://www.foodmatters.com/media/cache/06/e4/06e49ad7cc58c1e925b9f1d5786ef6f1.jpg') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center center;
+        }
+
+        .background-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: -1;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.6);
+            color: #e0e0e0;
+            padding: 10px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-sizing: border-box;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-container img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid #e0e0e0;
+            margin-right: 10px;
+        }
+
+        .logo-container span {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #e0e0e0;
+        }
+
+        nav {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul li {
+            margin: 0 10px;
+        }
+
+        nav ul li a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #ff5722;
+        }
+
+        main {
+            padding: 80px 20px 20px;
+            text-align: center;
+            color: #f4f4f4;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        h1 {
+            color: #bb86fc;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto; /* Add margin to create space around container */
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            text-align: center;
+            width: 100%;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.7);
+            color: #e0e0e0;
+            padding: 10px 20px;
+            text-align: center;
+            position: relative;
+            width: 100%;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-overlay"></div>
+    
+    <header>
+        <div class="logo-container">
+            <img src="https://static.vecteezy.com/system/resources/previews/000/623/854/original/agriculture-business-logo-template-unique-green-vector-image.jpg" alt="Crop-Pred Logo">
+            <span>Crop-Pred</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="prediction">Crop Prediction</a></li>
+                <li><a href="analysis">Crop Analysis</a></li>
+                <li><a href="output">Output Analysis</a></li>
+                <li><a href="contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <section>
+            <div class="container">
+                <h1>Prediction Result</h1>
+                <p>The recommended crop for cultivation is: <strong>{{ pred }}</strong></p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Crop Prediction. All rights reserved.</p>
+    </footer>
+</body>
+</html>
